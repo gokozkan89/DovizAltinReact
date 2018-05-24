@@ -53,18 +53,19 @@ export default class Kurlar extends React.Component {
         'ARS',
         'ALL',
       ],
-      selectedKurlar: ['USD', 'EUR', 'GBP', 'CHF', 'CAD', 'ARS'],
       checked: [],
     };
   }
-  checkBoxPress(item) {
+  async checkBoxPress(item) {
     const { checked } = this.state;
-    if (!checked.includes(item)) this.setState({ checked: [...checked, item] });
-    else this.setState({ checked: checked.filter(a => a !== item) });
+    if (!checked.includes(item)) {
+      this.setState({ checked: [...checked, item] });
+      AsyncStorage.setItem('kurlar', JSON.stringify(checked));
+    } else {
+      this.setState({ checked: checked.filter(a => a !== item) });
+    }
   }
-  componentWillMount() {
-    AsyncStorage.setItem('kurlar', JSON.stringify(this.state.selectedKurlar));
-  }
+  componentWillMount() {}
   render() {
     return (
       <Container>
