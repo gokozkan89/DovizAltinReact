@@ -9,10 +9,10 @@ import {
   Button,
   Card,
   CardItem,
-  CheckBox
+  CheckBox,
 } from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
-import { FlatList,  AsyncStorage } from 'react-native';
+import { FlatList, AsyncStorage } from 'react-native';
 
 export default class Kurlar extends React.Component {
   constructor() {
@@ -53,16 +53,17 @@ export default class Kurlar extends React.Component {
         'ARS',
         'ALL',
       ],
-      selectedId:null,
-      
+      selectedKurlar: ['USD', 'EUR', 'GBP', 'CHF', 'CAD', 'ARS'],
+      checked: [],
     };
   }
-  checkBoxPress(id){
-    this.setState({selectedId:id});
-
+  checkBoxPress(item) {
+    const { checked } = this.state;
+    if (!checked.includes(item)) this.setState({ checked: [...checked, item] });
+    else this.setState({ checked: checked.filter(a => a !== item) });
   }
   componentWillMount() {
-    AsyncStorage.setItem('kurlar', JSON.stringify(this.state.kurlar));
+    AsyncStorage.setItem('kurlar', JSON.stringify(this.state.selectedKurlar));
   }
   render() {
     return (
@@ -71,7 +72,7 @@ export default class Kurlar extends React.Component {
           <Right style={{ flex: 1 }}>
             <Button
               transparent
-              onPress={() => this.props.navigation.navigate('DovizKurlari')}
+              onPress={() => this.props.navigation.navigate('Home')}
             >
               <Feather name="x-square" size={25} color="white" />
             </Button>
@@ -81,16 +82,19 @@ export default class Kurlar extends React.Component {
           <View style={{ flex: 1 }}>
             <FlatList
               data={this.state.kurlar}
+              extraData={this.state}
               renderItem={({ item }) => (
                 <Card>
                   <CardItem>
                     <Text style={{ marginLeft: 5, flex: 1 }}>
                       {`${item}/TRY`}
                     </Text>
-                    <CheckBox 
-                      checked={this.state.selectedId !== item.id}
-                      onPress={this.checkBoxPress(item.id) 
-                      }/>
+                    <CheckBox
+                      onPress={() => {
+                        this.checkBoxPress(item);
+                      }}
+                      checked={this.state.checked.includes(item)}
+                    />
                   </CardItem>
                 </Card>
               )}
