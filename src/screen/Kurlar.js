@@ -9,9 +9,10 @@ import {
   Button,
   Card,
   CardItem,
+  CheckBox
 } from 'native-base';
 import Feather from 'react-native-vector-icons/Feather';
-import { FlatList, CheckBox, AsyncStorage } from 'react-native';
+import { FlatList,  AsyncStorage } from 'react-native';
 
 export default class Kurlar extends React.Component {
   constructor() {
@@ -52,10 +53,14 @@ export default class Kurlar extends React.Component {
         'ARS',
         'ALL',
       ],
-      checked: false,
+      selectedId:null,
+      
     };
   }
-  
+  checkBoxPress(id){
+    this.setState({selectedId:id});
+
+  }
   componentWillMount() {
     AsyncStorage.setItem('kurlar', JSON.stringify(this.state.kurlar));
   }
@@ -82,13 +87,10 @@ export default class Kurlar extends React.Component {
                     <Text style={{ marginLeft: 5, flex: 1 }}>
                       {`${item}/TRY`}
                     </Text>
-                    <CheckBox
-                      checked={this.state.checked}
-                      onPress={() => {
-                        this.setState({ checked: !this.state.checked });
-                        alert(this.state.checked);
-                      }}
-                    />
+                    <CheckBox 
+                      checked={this.state.selectedId !== item.id}
+                      onPress={this.checkBoxPress(item.id) 
+                      }/>
                   </CardItem>
                 </Card>
               )}
