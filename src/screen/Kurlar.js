@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Container,
   Content,
@@ -9,73 +9,75 @@ import {
   Button,
   Card,
   CardItem,
-  CheckBox,
-} from 'native-base';
-import Feather from 'react-native-vector-icons/Feather';
-import { FlatList, AsyncStorage } from 'react-native';
+  CheckBox
+} from "native-base";
+import Feather from "react-native-vector-icons/Feather";
+import { FlatList, AsyncStorage } from "react-native";
 
 export default class Kurlar extends React.Component {
   constructor() {
     super();
+
     this.state = {
       kurlar: [
-        'USD',
-        'EUR',
-        'GBP',
-        'CHF',
-        'CAD',
-        'RUB',
-        'AED',
-        'AUD',
-        'DKK',
-        'SEK',
-        'NOK',
-        'JPY',
-        'KWD',
-        'ZAR',
-        'BHD',
-        'LYD',
-        'SAR',
-        'IQD',
-        'ILS',
-        'IRR',
-        'INR',
-        'MXN',
-        'HUF',
-        'NZD',
-        'BRL',
-        'IDR',
-        'CSK',
-        'PLN',
-        'BGN',
-        'RON',
-        'CNY',
-        'ARS',
-        'ALL',
+        "USD",
+        "EUR",
+        "GBP",
+        "CHF",
+        "CAD",
+        "RUB",
+        "AED",
+        "AUD",
+        "DKK",
+        "SEK",
+        "NOK",
+        "JPY",
+        "KWD",
+        "ZAR",
+        "BHD",
+        "LYD",
+        "SAR",
+        "IQD",
+        "ILS",
+        "IRR",
+        "INR",
+        "MXN",
+        "HUF",
+        "NZD",
+        "BRL",
+        "IDR",
+        "CSK",
+        "PLN",
+        "BGN",
+        "RON",
+        "CNY",
+        "ARS",
+        "ALL"
       ],
-      checked: [],
+      checked: []
     };
   }
-  async checkBoxPress(item) {
+
+  checkBoxPress(item) {
     const { checked } = this.state;
     if (!checked.includes(item)) {
       this.setState({ checked: [...checked, item] });
-      AsyncStorage.setItem('kurlar', JSON.stringify(checked));
     } else {
       this.setState({ checked: checked.filter(a => a !== item) });
     }
   }
-  componentWillMount() {}
+  componentDidMount() {}
   render() {
+    AsyncStorage.setItem("kurlar", JSON.stringify(this.state.checked));
     return (
       <Container>
         <Header>
           <Right style={{ flex: 1 }}>
             <Button
               transparent
-              onPress={() => this.props.navigation.navigate('Home')}
+              onPress={() => this.props.navigation.navigate("Home")}
             >
-              <Feather name="x-square" size={25} color="white" />
+              <Feather name="x-square" size={25} color="skyblue" />
             </Button>
           </Right>
         </Header>

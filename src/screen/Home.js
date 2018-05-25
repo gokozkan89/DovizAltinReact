@@ -71,7 +71,7 @@ export default class Home extends React.Component {
               transparent
               onPress={() => this.props.navigation.navigate('Kurlar')}
             >
-              <IconFontAwesome name="plus-square-o" size={25} color="white" />
+              <IconFontAwesome name="plus-square-o" size={25} color="skyblue" />
             </Button>
           </Right>
         </Header>
