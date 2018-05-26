@@ -13,7 +13,7 @@ export default class MyHeader extends React.Component {
         <Left style={{ flex: 1 }}>
           <Button
             transparent
-            onPress={() => this.props.navigation.navigate('DrawerOpen')}
+            onPress={() => this.props.navigation.navigate(this.props.leftNav)}
           >
             <Icon name="menu" />
           </Button>
@@ -25,7 +25,7 @@ export default class MyHeader extends React.Component {
         <Right style={{ flex: 1 }}>
           <Button
             transparent
-            onPress={() => this.props.navigation.navigate('Kurlar')}
+            onPress={() => this.props.navigation.navigate(this.props.rightNav)}
           >
             <IconFontAwesome name="plus-square-o" size={25} color="skyblue" />
           </Button>
