@@ -75,7 +75,7 @@ export default class Kurlar extends React.Component {
           <Right style={{ flex: 1 }}>
             <Button
               transparent
-              onPress={() => this.props.navigation.navigate("Home")}
+              onPress={() => this.props.navigation.navigate('AnaSayfa')}
             >
               <Feather name="x-square" size={25} color="skyblue" />
             </Button>
