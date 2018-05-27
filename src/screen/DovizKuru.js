@@ -14,9 +14,10 @@ export default class DovizKuru extends React.Component {
     this.state = {
       isLoading: true,
       selling: [],
+      datas: [],
     };
   }
-
+  // veriyi tersten yazdırmak gerekecek
   componentDidMount() {
     return fetch(
       `https://doviz.com/api/v1/currencies/${
@@ -25,20 +26,19 @@ export default class DovizKuru extends React.Component {
     )
       .then(response => response.json())
       .then(responseJson => {
-        for (let i = 0; i < responseJson.length; i++) {
-          this.setState({
-            selling: [...this.state.selling, responseJson[i].selling],
-          });
+        for (let i = 0; i < responseJson.length; i += 1) {
+          if (i % 5 === 0) {
+            this.setState({
+              selling: [...this.state.selling, responseJson[i].selling],
+              datas: [...this.state.datas, responseJson[i]],
+            });
+          }
         }
         // console.log(this.state.selling)
 
-        this.setState(
-          {
-            isLoading: false,
-            dataSource: responseJson,
-          },
-          () => {}
-        );
+        this.setState({
+          isLoading: false,
+        });
       })
       .catch(error => {
         console.error(error);
@@ -91,7 +91,7 @@ export default class DovizKuru extends React.Component {
         <Content style={{ flex: 1 }}>
           <View style={{ flex: 1 }}>
             <FlatList
-              data={this.state.dataSource}
+              data={this.state.datas}
               renderItem={({ item }) => (
                 <Card>
                   <CardItem>

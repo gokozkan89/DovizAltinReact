@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Content } from 'native-base';
-import { AsyncStorage } from 'react-native';
+import { AsyncStorage, Alert } from 'react-native';
 import MyCard from '../components/MyCard';
 import MyHeader from '../components/MyHeader';
 
@@ -32,8 +32,10 @@ export default class AnaSayfa extends React.Component {
       console.log(err);
     }
   }
-  componentWillMount() {
-    this.getPrices();
+  componentDidMount() {
+    setInterval(() => {
+      this.getPrices();
+    }, 3000);
   }
   render() {
     return (
