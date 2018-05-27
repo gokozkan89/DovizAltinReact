@@ -26,7 +26,12 @@ export default class MyCard extends React.Component {
             data={this.props.prices}
             renderItem={({ item }) => (
               <Card>
-                <CardItem>
+                <CardItem
+                  button
+                  onPress={() =>
+                    this.props.navigation.navigate('DovizKuru', { ...item })
+                  }
+                >
                   <Text style={{ marginLeft: 5, flex: 1 }}>
                     {`${item.code}/TRY`}
                   </Text>

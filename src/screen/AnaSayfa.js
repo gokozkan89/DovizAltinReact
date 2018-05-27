@@ -38,13 +38,13 @@ export default class AnaSayfa extends React.Component {
   render() {
     return (
       <Container>
+        <MyHeader
+          leftNav="DrawerOpen"
+          rightNav="Kurlar"
+          title="Anasayfa"
+          navigation={this.props.navigation}
+        />
         <Content>
-          <MyHeader
-            leftNav="DrawerOpen"
-            rightNav="Kurlar"
-            title="Anasayfa"
-            navigation={this.props.navigation}
-          />
           <MyCard
             prices={this.state.prices}
             name="PARİTELER"

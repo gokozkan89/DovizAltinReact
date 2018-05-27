@@ -10,7 +10,7 @@ export default class MyHeader extends React.Component {
   render() {
     return (
       <Header>
-        <Left style={{ flex: 1 }}>
+        <Left style={{ flex: 1}}>
           <Button
             transparent
             onPress={() => this.props.navigation.navigate(this.props.leftNav)}
@@ -18,7 +18,7 @@ export default class MyHeader extends React.Component {
             <Icon name="menu" />
           </Button>
         </Left>
-        <Body style={{ flex: 1, alignItems: 'center' }}>
+        <Body style={{ flex: 3, alignItems: 'center' }}>
           <Title>{this.props.title}</Title>
         </Body>
 
