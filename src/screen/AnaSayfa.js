@@ -14,7 +14,7 @@ export default class AnaSayfa extends React.Component {
       const item = [];
       await AsyncStorage.getItem('kurlar')
         .then(req => JSON.parse(req))
-        .then(json => (this.item = json))
+        .then(json => (item = json))
         .catch(error => this.alert('AsyncStorege getItem sıkıntılı', error));
       this.setState({ currencies: item });
       const prices = await Promise.all(
@@ -29,7 +29,7 @@ export default class AnaSayfa extends React.Component {
         prices,
       });
     } catch (err) {
-      this.alert('error while fetching prices: ', err);
+      console.log(err);
     }
   }
   componentWillMount() {
@@ -39,15 +39,15 @@ export default class AnaSayfa extends React.Component {
     return (
       <Container>
         <Content>
-          <MyHeader title="Anasayfa" navigation={this.props.navigation} />
-          <MyCard
-            prices={this.state.prices}
-            name="PARİTELER"
+          <MyHeader
+            leftNav="DrawerOpen"
+            rightNav="Kurlar"
+            title="Anasayfa"
             navigation={this.props.navigation}
           />
           <MyCard
             prices={this.state.prices}
-            name="ALTIN"
+            name="PARİTELER"
             navigation={this.props.navigation}
           />
         </Content>

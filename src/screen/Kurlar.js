@@ -54,6 +54,10 @@ export default class Kurlar extends React.Component {
         'ARS',
         'ALL',
       ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> c6d342b357e92d60fec06e4df4a1c1ab0779a734
       checked: [],
     };
   }
@@ -66,7 +70,14 @@ export default class Kurlar extends React.Component {
       this.setState({ checked: checked.filter(a => a !== item) });
     }
   }
-  componentDidMount() {}
+  async veriGetir() {
+    await AsyncStorage.getItem('kurlar')
+      .then(req => JSON.parse(req))
+      .then(json => this.setState({ checked: json }));
+  }
+  componentWillMount() {
+    this.veriGetir();
+  }
   render() {
     AsyncStorage.setItem('kurlar', JSON.stringify(this.state.checked));
     return (

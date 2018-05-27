@@ -15,6 +15,7 @@ import {
 } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { ActivityIndicator, FlatList, View } from 'react-native';
+import MyHeader from '../components/MyHeader';
 
 export default class DovizKurlari extends React.Component {
   constructor() {
@@ -53,28 +54,12 @@ export default class DovizKurlari extends React.Component {
     }
     return (
       <Container>
-        <Header>
-          <Left style={{ flex: 1 }}>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate('DrawerOpen')}
-            >
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body style={{ flex: 1, alignItems: 'center' }}>
-            <Title>Döviz Kurları</Title>
-          </Body>
-
-          <Right style={{ flex: 1 }}>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate('Kurlar')}
-            >
-              <IconFontAwesome name="plus-square-o" size={25} color="skyblue" />
-            </Button>
-          </Right>
-        </Header>
+        <MyHeader
+          leftNav="DrawerOpen"
+          rightNav="Kurlar"
+          title="Döviz Kurları"
+          navigation={this.props.navigation}
+        />
         <Content>
           <View style={{ flex: 1 }}>
             <FlatList
