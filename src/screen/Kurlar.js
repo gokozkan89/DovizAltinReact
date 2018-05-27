@@ -63,6 +63,8 @@ export default class Kurlar extends React.Component {
         { name: 'Gram Altın', value: 'gram-altin', header: false },
         { name: 'Ata Altın', value: 'ata-altin', header: false },
       ],
+
+      
       checked: ['USD', 'EUR'],
     };
   }
@@ -75,6 +77,7 @@ export default class Kurlar extends React.Component {
       this.setState({ checked: checked.filter(a => a !== item) });
     }
   }
+  // if kontrolü ile proje ilk açıldığında null boş gelen veri kontrol edilecek boş ise checkeda set state yapılmayacak.
   async veriGetir() {
     await AsyncStorage.getItem('kurlar')
       .then(req => JSON.parse(req))

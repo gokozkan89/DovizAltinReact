@@ -32,26 +32,17 @@ export default class DovizKuru extends React.Component {
   convertTimestamp(timestamp) {
     let d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
       yyyy = d.getFullYear(),
-      mm = `0${d.getMonth() + 1}`.slice(-2), // Months are zero based. Add leading 0.
-      dd = `0${d.getDate()}`.slice(-2), // Add leading 0.
+      mm =   d.getMonth()+1, // Months are zero based. Add leading 0.
+      dd = d.getDate(), // Add leading 0.
       hh = d.getHours(),
       h = hh,
       min = `0${d.getMinutes()}`.slice(-2), // Add leading 0.
       ampm = 'AM',
       time;
 
-    if (hh > 12) {
-      h = hh - 12;
-      ampm = 'PM';
-    } else if (hh === 12) {
-      h = 12;
-      ampm = 'PM';
-    } else if (hh == 0) {
-      h = 12;
-    }
 
     // ie: 2013-02-18, 8:35 AM
-    time = `${yyyy}-${mm}-${dd}, ${h}:${min} ${ampm}`;
+    time = `${yyyy}/${mm}/${dd} ${h}:${min}`;
 
     return time;
   }
@@ -111,7 +102,16 @@ export default class DovizKuru extends React.Component {
           navigation={this.props.navigation}
         />
 
+<<<<<<< HEAD
         <View style={{ flex: 0.5, flexDirection: 'row' }}>
+=======
+        <View
+          style={{
+            flex: 0.5,
+            flexDirection: 'row',
+          }}
+        >
+>>>>>>> 649d1ff790ea8606b800d3f4a3bccd5bba1e337d
           <YAxis
             data={data}
             contentInset={contentInset}
@@ -131,8 +131,14 @@ export default class DovizKuru extends React.Component {
             <Grid />
           </LineChart>
         </View>
+<<<<<<< HEAD
         <Content>
           <View style={{ flex: 2 }}>
+=======
+
+        <Content style={{ flex: 1 }}>
+          <View style={{ flex: 1 }}>
+>>>>>>> 649d1ff790ea8606b800d3f4a3bccd5bba1e337d
             <FlatList
               data={this.state.dataSource}
               renderItem={({ item }) => (

@@ -36,7 +36,7 @@ export default class DovizKurlari extends React.Component {
         );
       })
       .catch(error => {
-        console.error(error);
+        this.console.error(error);
       });
   }
 
