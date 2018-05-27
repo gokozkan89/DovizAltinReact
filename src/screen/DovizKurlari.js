@@ -1,18 +1,5 @@
 import React from 'react';
-import {
-  Content,
-  Container,
-  Header,
-  Button,
-  Left,
-  Right,
-  Icon,
-  Title,
-  Body,
-  Card,
-  CardItem,
-  Text,
-} from 'native-base';
+import { Content, Container, Card, CardItem, Text } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { ActivityIndicator, FlatList, View } from 'react-native';
 import MyHeader from '../components/MyHeader';

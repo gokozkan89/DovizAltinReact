@@ -63,8 +63,7 @@ export default class Kurlar extends React.Component {
         { name: 'Gram Altın', value: 'gram-altin', header: false },
         { name: 'Ata Altın', value: 'ata-altin', header: false },
       ],
-
-      
+      stickyHeaderIndices: [],
       checked: ['USD', 'EUR'],
     };
   }
@@ -77,20 +76,59 @@ export default class Kurlar extends React.Component {
       this.setState({ checked: checked.filter(a => a !== item) });
     }
   }
-  // if kontrolü ile proje ilk açıldığında null boş gelen veri kontrol edilecek boş ise checkeda set state yapılmayacak.
+
   async veriGetir() {
     await AsyncStorage.getItem('kurlar')
       .then(req => JSON.parse(req))
       .then(json => this.setState({ checked: json }));
   }
   componentWillMount() {
+    let arr = [];
+    this.state.data.map(obj => {
+      if (obj.header) {
+        arr.push(this.state.data.indexOf(obj));
+      }
+    });
+    arr.push(0);
+    this.setState({
+      stickyHeaderIndices: arr,
+    });
     this.veriGetir();
   }
+  renderItem = ({ item }) => {
+    if (item.header) {
+      return (
+        <Card style={{ marginLeft: 0, marginRight: 0, marginTop: 0,marginBottom:0}}>
+          <CardItem itemDivider>
+            <Text style={{ flex: 1,textAlign:"center" }}>
+              {item.name}
+            </Text>
+          </CardItem>
+        </Card>
+      );
+    } else if (!item.header) {
+      return (
+        <Card>
+          <CardItem>
+            <Text style={{ marginLeft: 5, flex: 1 }}>
+              {`${item.name}/TRY`}
+            </Text>
+            <CheckBox
+              onPress={() => {
+                this.checkBoxPress(item.value);
+              }}
+              checked={this.state.checked.includes(item.value)}
+            />
+          </CardItem>
+        </Card>
+      );
+    }
+  };
   render() {
     AsyncStorage.setItem('kurlar', JSON.stringify(this.state.checked));
-    //alert(this.data.value);
     return (
-      <Container>
+      <Container >
+        
         <Header>
           <Right style={{ flex: 1 }}>
             <Button
@@ -101,30 +139,17 @@ export default class Kurlar extends React.Component {
             </Button>
           </Right>
         </Header>
-        <Content>
+       
           <View style={{ flex: 1 }}>
             <FlatList
               data={this.state.data}
               extraData={this.state}
-              renderItem={({ item }) => (
-                <Card>
-                  <CardItem>
-                    <Text style={{ marginLeft: 5, flex: 1 }}>
-                      {`${item.name}/TRY`}
-                    </Text>
-                    <CheckBox
-                      onPress={() => {
-                        this.checkBoxPress(item.value);
-                      }}
-                      checked={this.state.checked.includes(item.value)}
-                    />
-                  </CardItem>
-                </Card>
-              )}
-              keyExtractor={(item, index) => index.toString()}
+              renderItem={this.renderItem}
+              keyExtractor={item=>item.name}
+              stickyHeaderIndices={this.state.stickyHeaderIndices}
             />
           </View>
-        </Content>
+        
       </Container>
     );
   }
