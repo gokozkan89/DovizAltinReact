@@ -32,7 +32,9 @@ export default class AnaSayfa extends React.Component {
       console.log(err);
     }
   }
-  componentDidMount() {
+  // interval sürekli açık kalıyor ona bakılacak.
+  componentWillMount() {
+    this.getPrices();
     setInterval(() => {
       this.getPrices();
     }, 3000);
