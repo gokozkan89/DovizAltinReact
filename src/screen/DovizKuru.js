@@ -1,23 +1,11 @@
 import React from 'react';
-import {
-  Container,
-  Content,
-  Header,
-  Left,
-  Right,
-  Icon,
-  Button,
-  Body,
-  Title,
-  Card,
-  CardItem,
-  View,
-  Text,
-} from 'native-base';
+import { Container, Content, Card, CardItem, View, Text } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { ActivityIndicator, FlatList } from 'react-native';
 import { LineChart, Grid, YAxis } from 'react-native-svg-charts';
+import Moment from 'react-moment';
+import 'moment-timezone';
 import MyHeader from '../components/MyHeader';
 
 export default class DovizKuru extends React.Component {
@@ -26,24 +14,7 @@ export default class DovizKuru extends React.Component {
     this.state = {
       isLoading: true,
       selling: [],
-      update_date: [],
     };
-  }
-  convertTimestamp(timestamp) {
-    let d = new Date(timestamp * 1000), // Convert the passed timestamp to milliseconds
-      yyyy = d.getFullYear(),
-      mm = d.getMonth() + 1, // Months are zero based. Add leading 0.
-      dd = d.getDate(), // Add leading 0.
-      hh = d.getHours(),
-      h = hh,
-      min = `0${d.getMinutes()}`.slice(-2), // Add leading 0.
-      ampm = 'AM',
-      time;
-
-    // ie: 2013-02-18, 8:35 AM
-    time = `${yyyy}/${mm}/${dd} ${h}:${min}`;
-
-    return time;
   }
 
   componentDidMount() {
@@ -57,10 +28,6 @@ export default class DovizKuru extends React.Component {
         for (let i = 0; i < responseJson.length; i++) {
           this.setState({
             selling: [...this.state.selling, responseJson[i].selling],
-            update_date: [
-              ...this.state.update_date,
-              this.convertTimestamp(responseJson[i].update_date),
-            ],
           });
         }
         // console.log(this.state.selling)
@@ -121,7 +88,6 @@ export default class DovizKuru extends React.Component {
             <Grid />
           </LineChart>
         </View>
-
         <Content style={{ flex: 1 }}>
           <View style={{ flex: 1 }}>
             <FlatList
@@ -130,7 +96,14 @@ export default class DovizKuru extends React.Component {
                 <Card>
                   <CardItem>
                     <Text style={{ textAlign: 'center', flex: 1 }}>
-                      {this.convertTimestamp(item.update_date)}
+                      <Moment
+                        unix
+                        format="YYYY/MM/DD HH:mm"
+                        tz="Europe/Istanbul"
+                        element={Text}
+                      >
+                        {item.update_date}
+                      </Moment>
                     </Text>
                     <Text style={{ textAlign: 'center', flex: 1 }}>
                       {item.selling}
