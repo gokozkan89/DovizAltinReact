@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Container,
   Content,
@@ -9,10 +9,10 @@ import {
   Button,
   Card,
   CardItem,
-  CheckBox
-} from "native-base";
-import Feather from "react-native-vector-icons/Feather";
-import { FlatList, AsyncStorage } from "react-native";
+  CheckBox,
+} from 'native-base';
+import Feather from 'react-native-vector-icons/Feather';
+import { FlatList, AsyncStorage } from 'react-native';
 
 export default class Kurlar extends React.Component {
   constructor() {
@@ -20,41 +20,41 @@ export default class Kurlar extends React.Component {
 
     this.state = {
       kurlar: [
-        "USD",
-        "EUR",
-        "GBP",
-        "CHF",
-        "CAD",
-        "RUB",
-        "AED",
-        "AUD",
-        "DKK",
-        "SEK",
-        "NOK",
-        "JPY",
-        "KWD",
-        "ZAR",
-        "BHD",
-        "LYD",
-        "SAR",
-        "IQD",
-        "ILS",
-        "IRR",
-        "INR",
-        "MXN",
-        "HUF",
-        "NZD",
-        "BRL",
-        "IDR",
-        "CSK",
-        "PLN",
-        "BGN",
-        "RON",
-        "CNY",
-        "ARS",
-        "ALL"
+        'USD',
+        'EUR',
+        'GBP',
+        'CHF',
+        'CAD',
+        'RUB',
+        'AED',
+        'AUD',
+        'DKK',
+        'SEK',
+        'NOK',
+        'JPY',
+        'KWD',
+        'ZAR',
+        'BHD',
+        'LYD',
+        'SAR',
+        'IQD',
+        'ILS',
+        'IRR',
+        'INR',
+        'MXN',
+        'HUF',
+        'NZD',
+        'BRL',
+        'IDR',
+        'CSK',
+        'PLN',
+        'BGN',
+        'RON',
+        'CNY',
+        'ARS',
+        'ALL',
       ],
-      checked: []
+      checked: [],
     };
   }
 
@@ -68,7 +68,7 @@ export default class Kurlar extends React.Component {
   }
   componentDidMount() {}
   render() {
-    AsyncStorage.setItem("kurlar", JSON.stringify(this.state.checked));
+    AsyncStorage.setItem('kurlar', JSON.stringify(this.state.checked));
     return (
       <Container>
         <Header>

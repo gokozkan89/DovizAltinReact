@@ -35,7 +35,7 @@ export default class DovizKurlari extends React.Component {
         );
       })
       .catch(error => {
-        console.error(error);
+        this.console.error(error);
       });
   }
 
@@ -87,13 +87,13 @@ export default class DovizKurlari extends React.Component {
                     </Text>
                     <IconFontAwesome
                       name={
-                        JSON.stringify(item.change_rate).charAt(0) == '-'
+                        JSON.stringify(item.change_rate).charAt(0) === '-'
                           ? 'arrow-circle-down'
                           : 'arrow-circle-up'
                       }
                       size={25}
                       color={
-                        JSON.stringify(item.change_rate).charAt(0) == '-'
+                        JSON.stringify(item.change_rate).charAt(0) === '-'
                           ? 'red'
                           : 'green'
                       }
