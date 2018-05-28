@@ -14,18 +14,28 @@ import {
   Text,
   Picker,
 } from 'native-base';
-import {} from 'react-native';
+import { AsyncStorage,Alert } from 'react-native';
 import IonicIcon from 'react-native-vector-icons/Ionicons';
 
 export default class WalletAdd extends React.Component {
   constructor() {
     super();
-    this.state = {};
+    this.state = {alisKuru:null,miktar:null,code:""};
   }
   onValueChange(value: string) {
     this.setState({
-      selected1: value
+      code: value
     });
+    
+  }
+  btnKaydet(){
+    const data=[{code:"",alisKuru:null,miktar:null}];
+    const {alisKuru,code,miktar} = this.state;
+    const a = ""+code+miktar+alisKuru  
+    Alert.alert(a);
+   // veri geliyor...   
+      //AsyncStorage.setItem('myWallet')
+    
   }
   render() {
     return (
@@ -48,24 +58,22 @@ export default class WalletAdd extends React.Component {
             <Picker
               iosHeader="Select one"
               mode="dropdown"
-              selectedValue={this.state.selected1}
+              selectedValue={this.state.code}
               onValueChange={this.onValueChange.bind(this)}
             >
-              <Picker.Item label="Wallet" value="key0" />
-              <Picker.Item label="ATM Card" value="key1" />
-              <Picker.Item label="Debit Card" value="key2" />
-              <Picker.Item label="Credit Card" value="key3" />
-              <Picker.Item label="Net Banking" value="key4" />
+              <Picker.Item label="USD" value="USD" />
+              <Picker.Item label="EUR" value="EUR" />
+              <Picker.Item label="AUD" value="AUD" />
             </Picker>
             <Item stackedLabel>
               <Label>Alış Kuru</Label>
-              <Input />
+              <Input keyboardType='numeric' onChangeText={(text)=>this.setState({ alisKuru:text })}/>
             </Item>
             <Item stackedLabel last>
               <Label>Miktar</Label>
-              <Input />
+              <Input keyboardType='numeric' onChangeText={(text) => this.setState({ miktar: text })} />
             </Item>
-            <Button block success>
+            <Button block success onPress={()=>this.btnKaydet()}>
               <Text>KAYDET</Text>
             </Button>
           </Form>
