@@ -8,6 +8,8 @@ import DovizKuru from '../screen/DovizKuru';
 import SideBar from '../screen/SideBar';
 import Kurlar from '../screen/Kurlar';
 import AnaSayfa from '../screen/AnaSayfa';
+import Wallet from '../screen/Wallet';
+import WalletAdd from '../screen/WalletAdd';
 
 export const DrawerNavigator = BaseDrawerNavigator(
   {
@@ -15,6 +17,8 @@ export const DrawerNavigator = BaseDrawerNavigator(
     DovizKuru: { screen: DovizKuru },
     Kurlar: { screen: Kurlar },
     AnaSayfa: { screen: AnaSayfa },
+    Wallet: { screen: Wallet },
+    WalletAdd: { screen: WalletAdd },
   },
   {
     contentComponent: props => <SideBar {...props} />,

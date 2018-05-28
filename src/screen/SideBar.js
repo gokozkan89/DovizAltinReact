@@ -2,7 +2,7 @@ import React from 'react';
 import { Image } from 'react-native';
 import { Container, Content, Text, List, ListItem } from 'native-base';
 
-const routes = ['DovizKurlari', 'DovizKuru', 'Kurlar', 'AnaSayfa'];
+const routes = ['DovizKurlari', 'DovizKuru', 'Kurlar', 'AnaSayfa', 'Wallet'];
 
 const SideBar = props => (
   <Container>
