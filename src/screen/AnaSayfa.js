@@ -16,6 +16,7 @@ export default class AnaSayfa extends React.Component {
         .then(req => JSON.parse(req))
         .then(json => (item = json))
         .catch(error => this.alert('AsyncStorege getItem sıkıntılı', error));
+      Alert.alert(JSON.stringify(item));
       this.setState({ currencies: item });
       const prices = await Promise.all(
         this.state.currencies.map(async currency =>
@@ -35,9 +36,9 @@ export default class AnaSayfa extends React.Component {
   // interval sürekli açık kalıyor ona bakılacak.
   componentWillMount() {
     this.getPrices();
-   /*setInterval(() => {
+    /*setInterval(() => {
       this.getPrices();
-    }, 3000);*/
+    }, 3000); */
   }
   render() {
     return (

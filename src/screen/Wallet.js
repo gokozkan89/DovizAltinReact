@@ -15,14 +15,23 @@ import {
   Title,
 } from 'native-base';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, AsyncStorage, Alert, StyleSheet } from 'react-native';
 
 export default class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
-      dataWallet: [{ name: 'Dolars', number: 6000, amount: 27600 }],
+      dataWallet: [],
     };
+  }
+  async veriGetir() {
+    await AsyncStorage.getItem('myWallet')
+      .then(req => JSON.parse(req))
+      .then(json => this.setState({ dataWallet: json }))
+      .catch(error => Alert.alert('AsyncStorege myWallet sıkıntılı', error));
+  }
+  componentWillMount() {
+    this.veriGetir();
   }
   render() {
     return (
@@ -62,12 +71,12 @@ export default class Wallet extends React.Component {
               renderItem={({ item }) => (
                 <Card>
                   <CardItem>
-                    <Text style={{ marginLeft: 5, flex: 1 }}>{item.name}</Text>
+                    <Text style={{ marginLeft: 5, flex: 1 }}>{item.code}</Text>
                     <Text style={{ textAlign: 'center', flex: 1 }}>
-                      {item.number}
+                      {item.miktar}
                     </Text>
                     <Text style={{ textAlign: 'center', flex: 1 }}>
-                      {item.amount}
+                      {item.alisKuru}
                     </Text>
                   </CardItem>
                 </Card>
