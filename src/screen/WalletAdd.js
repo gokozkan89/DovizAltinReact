@@ -21,14 +21,6 @@ export default class WalletAdd extends React.Component {
   constructor() {
     super();
     this.state = {
-      alisKuru:null,
-      miktar:null,
-      code:"",
-      data:[{
-        code:"",
-        miktar:null,
-        alisKuru:null,
-      }],
       datas:[],
     };
   }
@@ -46,13 +38,19 @@ export default class WalletAdd extends React.Component {
   }
   btnKaydet(){
     const obj = new Object();
-    obj['code'] = this.state.code;
-    obj['miktar'] =  this.state.miktar;
-    obj['alisKuru'] = this.state.alisKuru;
-    this.setState({datas:[...this.state.datas,obj]});
+    obj.code = this.state.code;
+    obj.miktar =  this.state.miktar;
+    obj.alisKuru = this.state.alisKuru;
+    obj.tutar = this.state.miktar * this.state.alisKuru;
+    if (this.state.datas===null||this.state.datas===undefined) {
+      this.setState({ datas: obj });
+    }
+    else{
+      this.setState({ datas: [...this.state.datas, obj] });
+    }
   }
   componentWillMount(){
-    this.veriGetir();
+    this.veriGetir(); 
   }
   render() {
     AsyncStorage.setItem('myWallet', JSON.stringify(this.state.datas));
