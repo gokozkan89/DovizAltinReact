@@ -20,7 +20,9 @@ import IonicIcon from 'react-native-vector-icons/Ionicons';
 export default class WalletAdd extends React.Component {
   constructor() {
     super();
-    this.state = {alisKuru:null,miktar:null,code:""};
+    this.state = {alisKuru:null,miktar:null,code:"",datas:[],data:{
+      code:"USD",alisKuru:2,miktar:4
+    }};
   }
   onValueChange(value: string) {
     this.setState({
@@ -29,10 +31,16 @@ export default class WalletAdd extends React.Component {
     
   }
   btnKaydet(){
-    const data=[{code:"",alisKuru:null,miktar:null}];
-    const {alisKuru,code,miktar} = this.state;
-    const a = ""+code+miktar+alisKuru  
-    Alert.alert(a);
+    const {data,datas,alisKuru,code,miktar} = this.state;
+    const a = [];
+    data.code = code;
+    data.alisKuru = alisKuru;
+    data.miktar = miktar;
+    
+    this.setState({datas:[...this.state.datas,data]});
+    //this.setState({datas:a})
+    
+    Alert.alert(this.state.datas);
    // veri geliyor...   
       //AsyncStorage.setItem('myWallet')
     
