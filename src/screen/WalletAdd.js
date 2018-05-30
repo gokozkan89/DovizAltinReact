@@ -20,9 +20,15 @@ import IonicIcon from 'react-native-vector-icons/Ionicons';
 export default class WalletAdd extends React.Component {
   constructor() {
     super();
+<<<<<<< HEAD
     this.state = {alisKuru:null,miktar:null,code:"",datas:[],data:{
       code:"USD",alisKuru:2,miktar:4
     }};
+=======
+    this.state = {
+      datas:[],
+    };
+>>>>>>> 52bc7c5a6d2974921cb0eb63f945d519fe50b0ab
   }
   onValueChange(value: string) {
     this.setState({
@@ -30,7 +36,14 @@ export default class WalletAdd extends React.Component {
     });
     
   }
+  async veriGetir() {
+    await AsyncStorage.getItem('myWallet')
+      .then(req => JSON.parse(req))
+      .then(json => this.setState({ datas: json }))
+      .catch(error => Alert.alert('AsyncStorege myWallet sıkıntılı', error));
+  }
   btnKaydet(){
+<<<<<<< HEAD
     const {data,datas,alisKuru,code,miktar} = this.state;
     const a = [];
     data.code = code;
@@ -44,8 +57,25 @@ export default class WalletAdd extends React.Component {
    // veri geliyor...   
       //AsyncStorage.setItem('myWallet')
     
+=======
+    const obj = new Object();
+    obj.code = this.state.code;
+    obj.miktar =  this.state.miktar;
+    obj.alisKuru = this.state.alisKuru;
+    obj.tutar = this.state.miktar * this.state.alisKuru;
+    if (this.state.datas===null||this.state.datas===undefined) {
+      this.setState({ datas: obj });
+    }
+    else{
+      this.setState({ datas: [...this.state.datas, obj] });
+    }
+  }
+  componentWillMount(){
+    this.veriGetir(); 
+>>>>>>> 52bc7c5a6d2974921cb0eb63f945d519fe50b0ab
   }
   render() {
+    AsyncStorage.setItem('myWallet', JSON.stringify(this.state.datas));
     return (
       <Container>
         <Header>
