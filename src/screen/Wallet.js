@@ -25,21 +25,29 @@ export default class Wallet extends React.Component {
       .then(req => JSON.parse(req))
       .then(json => this.setState({ dataWallet: json }))
       .catch(error => Alert.alert('AsyncStorege myWallet sıkıntılı', error));
+    const price = await Promise.all(
+      this.state.dataWallet.map(async currency =>
+        fetch(
+          `https://www.doviz.com/api/v1/currencies/${currency.code}/latest`
+        ).then(res => res.json())
+      )
+    );
+    this.state.dataWallet.map((item, index) => {
+      item.karzarar = price[index].selling * item.miktar;
+    });
+    console.log(JSON.stringify(this.state.dataWallet));
   }
   componentWillMount() {
     this.veriGetir();
-    this.karzararHesapla();
   }
-  // Dizideki son item silinmiyor.Bakman lazım.
+
   veriSil(item) {
     const data = this.state.dataWallet;
     data.splice(data.indexOf(item), 1);
     this.setState({ dataWallet: data });
     AsyncStorage.setItem('myWallet', JSON.stringify(data));
   }
-  async karzararHesapla() {
-    Alert.alert(JSON.stringify(this.state.dataWallet));
-  }
+
   render() {
     return (
       <Container>
