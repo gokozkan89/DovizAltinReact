@@ -43,6 +43,7 @@ export default class WalletAdd extends React.Component {
     obj.miktar =  this.state.miktar;
     obj.alisKuru = this.state.alisKuru;
     obj.tutar = this.state.miktar * this.state.alisKuru;
+    obj.karzarar = null;
     if (this.state.datas===null||this.state.datas===undefined) {
       this.setState({ datas: obj });
     }

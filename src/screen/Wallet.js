@@ -28,6 +28,7 @@ export default class Wallet extends React.Component {
   }
   componentWillMount() {
     this.veriGetir();
+    this.karzararHesapla();
   }
   // Dizideki son item silinmiyor.Bakman lazım.
   veriSil(item) {
@@ -35,6 +36,9 @@ export default class Wallet extends React.Component {
     data.splice(data.indexOf(item), 1);
     this.setState({ dataWallet: data });
     AsyncStorage.setItem('myWallet', JSON.stringify(data));
+  }
+  async karzararHesapla() {
+    Alert.alert(JSON.stringify(this.state.dataWallet));
   }
   render() {
     return (
