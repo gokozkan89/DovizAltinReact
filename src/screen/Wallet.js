@@ -6,16 +6,12 @@ import {
   CardItem,
   View,
   Text,
-  Header,
-  Left,
-  Right,
-  Body,
   Button,
   Icon,
-  Title,
+  SwipeRow,
 } from 'native-base';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import { FlatList, AsyncStorage, Alert, StyleSheet } from 'react-native';
+import MyHeader from '../components/MyHeader';
 
 export default class Wallet extends React.Component {
   constructor() {
@@ -33,35 +29,27 @@ export default class Wallet extends React.Component {
   componentWillMount() {
     this.veriGetir();
   }
+  // Dizideki son item silinmiyor.Bakman lazım.
+  veriSil(item) {
+    const data = this.state.dataWallet;
+    data.splice(data.indexOf(item), 1);
+    this.setState({ dataWallet: data });
+    AsyncStorage.setItem('myWallet', JSON.stringify(data));
+  }
   render() {
     return (
       <Container>
-        <Header>
-          <Left style={{ flex: 1 }}>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate('DrawerOpen')}
-            >
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body style={{ flex: 3, alignItems: 'center' }}>
-            <Title>Hesaplarım</Title>
-          </Body>
-          <Right style={{ flex: 1 }}>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate('WalletAdd')}
-            >
-              <IconFontAwesome name="plus-square-o" size={25} color="skyblue" />
-            </Button>
-          </Right>
-        </Header>
+        <MyHeader
+          leftNav="DrawerOpen"
+          rightNav="WalletAdd"
+          title="Hesaplarım"
+          navigation={this.props.navigation}
+        />
         <Content>
           <Card style={styles.margin}>
             <CardItem>
-              <Text style={{ marginLeft: 5, flex: 1 }}>CODE</Text>
-              <Text style={{ marginLeft: 5, flex: 1 }}>ALIŞ KURU</Text>
+              <Text style={{ textAlign: 'center', flex: 1 }}>CODE</Text>
+              <Text style={{ textAlign: 'center', flex: 1 }}>ALIŞ KURU</Text>
               <Text style={{ textAlign: 'center', flex: 1 }}>MİKTAR</Text>
               <Text style={{ textAlign: 'center', flex: 1 }}>TUTAR</Text>
             </CardItem>
@@ -70,20 +58,34 @@ export default class Wallet extends React.Component {
             <FlatList
               data={this.state.dataWallet}
               renderItem={({ item }) => (
-                <Card>
-                  <CardItem>
-                    <Text style={{ marginLeft: 5, flex: 1 }}>{item.code}</Text>
-                    <Text style={{ textAlign: 'center', flex: 1 }}>
-                      {item.alisKuru}
-                    </Text>
-                    <Text style={{ textAlign: 'center', flex: 1 }}>
-                      {item.miktar}
-                    </Text>
-                    <Text style={{ textAlign: 'center', flex: 1 }}>
-                      {item.tutar}
-                    </Text>
-                  </CardItem>
-                </Card>
+                <SwipeRow
+                  style={(styles.margin, styles.padding)}
+                  leftOpenValue={75}
+                  rightOpenValue={-75}
+                  body={
+                    <Card style={(styles.padding, styles.margin)}>
+                      <CardItem>
+                        <Text style={{ textAlign: 'center', flex: 1 }}>
+                          {item.code}
+                        </Text>
+                        <Text style={{ textAlign: 'center', flex: 1 }}>
+                          {item.alisKuru}
+                        </Text>
+                        <Text style={{ textAlign: 'center', flex: 1 }}>
+                          {item.miktar}
+                        </Text>
+                        <Text style={{ textAlign: 'center', flex: 1 }}>
+                          {item.tutar}
+                        </Text>
+                      </CardItem>
+                    </Card>
+                  }
+                  right={
+                    <Button danger onPress={() => this.veriSil(item)}>
+                      <Icon active name="trash" />
+                    </Button>
+                  }
+                />
               )}
               keyExtractor={(item, index) => index.toString()}
             />
@@ -99,5 +101,11 @@ const styles = StyleSheet.create({
     marginRight: 0,
     marginTop: 0,
     marginBottom: 0,
+  },
+  padding: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 });
