@@ -23,19 +23,37 @@ export default class Wallet extends React.Component {
   async veriGetir() {
     await AsyncStorage.getItem('myWallet')
       .then(req => JSON.parse(req))
-      .then(json => this.setState({ dataWallet: json }))
+      .then(json => {
+        console.log(JSON.stringify(json));
+        if (JSON.stringify(json) !== null) {
+          this.deneme(json);
+        }
+      })
       .catch(error => Alert.alert('AsyncStorege myWallet sıkıntılı', error));
+  }
+  async deneme(json) {
+    console.log(JSON.stringify(json));
+
+    this.data = json;
+
     const price = await Promise.all(
-      this.state.dataWallet.map(async currency =>
+      this.data.map(async currency =>
         fetch(
           `https://www.doviz.com/api/v1/currencies/${currency.code}/latest`
         ).then(res => res.json())
       )
     );
-    this.state.dataWallet.map((item, index) => {
-      item.karzarar = price[index].selling * item.miktar;
+    this.data.map((item, index) => {
+      item.karzarar = `${price[index].selling * item.miktar -
+        item.tutar}`.substring(0, 6);
+      if (!`${item.karzarar}`.includes('-')) {
+        item.color = 'green';
+      } else {
+        item.color = 'red';
+      }
     });
     console.log(JSON.stringify(this.state.dataWallet));
+    this.setState({ dataWallet: this.data });
   }
   componentWillMount() {
     this.veriGetir();
@@ -49,6 +67,7 @@ export default class Wallet extends React.Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.state.dataWallet));
     return (
       <Container>
         <MyHeader
@@ -59,11 +78,14 @@ export default class Wallet extends React.Component {
         />
         <Content>
           <Card style={styles.margin}>
-            <CardItem>
-              <Text style={{ textAlign: 'center', flex: 1 }}>CODE</Text>
-              <Text style={{ textAlign: 'center', flex: 1 }}>ALIŞ KURU</Text>
+            <CardItem style={{ paddingLeft: 0, paddingRight: 0 }}>
+              <Text style={{ textAlign: 'center', flex: 1, marginLeft: 0 }}>
+                CODE
+              </Text>
+              <Text style={{ textAlign: 'center', flex: 1.5 }}>ALIŞ KURU</Text>
               <Text style={{ textAlign: 'center', flex: 1 }}>MİKTAR</Text>
               <Text style={{ textAlign: 'center', flex: 1 }}>TUTAR</Text>
+              <Text style={{ textAlign: 'center', flex: 1.5 }}>KAR/ZARAR</Text>
             </CardItem>
           </Card>
           <View style={{ flex: 1 }}>
@@ -76,11 +98,11 @@ export default class Wallet extends React.Component {
                   rightOpenValue={-75}
                   body={
                     <Card style={(styles.padding, styles.margin)}>
-                      <CardItem>
+                      <CardItem style={{ paddingLeft: 0, paddingRight: 0 }}>
                         <Text style={{ textAlign: 'center', flex: 1 }}>
                           {item.code}
                         </Text>
-                        <Text style={{ textAlign: 'center', flex: 1 }}>
+                        <Text style={{ textAlign: 'center', flex: 1.5 }}>
                           {item.alisKuru}
                         </Text>
                         <Text style={{ textAlign: 'center', flex: 1 }}>
@@ -88,6 +110,15 @@ export default class Wallet extends React.Component {
                         </Text>
                         <Text style={{ textAlign: 'center', flex: 1 }}>
                           {item.tutar}
+                        </Text>
+                        <Text
+                          style={{
+                            textAlign: 'center',
+                            flex: 1.5,
+                            color: item.color,
+                          }}
+                        >
+                          {item.karzarar}
                         </Text>
                       </CardItem>
                     </Card>

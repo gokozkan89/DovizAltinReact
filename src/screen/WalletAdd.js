@@ -42,7 +42,7 @@ export default class WalletAdd extends React.Component {
     obj.code = this.state.code;
     obj.miktar =  this.state.miktar;
     obj.alisKuru = this.state.alisKuru;
-    obj.tutar = this.state.miktar * this.state.alisKuru;
+    obj.tutar = parseFloat(this.state.miktar) * parseFloat(this.state.alisKuru);
     obj.karzarar = null;
     obj.color = null;
     if (this.state.datas===null||this.state.datas===undefined) {
@@ -87,11 +87,11 @@ export default class WalletAdd extends React.Component {
             </Picker>
             <Item stackedLabel>
               <Label>Alış Kuru</Label>
-              <Input keyboardType='numeric' onChangeText={(text)=>this.setState({ alisKuru:text })}/>
+              <Input keyboardType='phone-pad' onChangeText={(text)=>this.setState({ alisKuru:text.replace(',','.') })}/>
             </Item>
             <Item stackedLabel last>
               <Label>Miktar</Label>
-              <Input keyboardType='numeric' onChangeText={(text) => this.setState({ miktar: text })} />
+              <Input keyboardType='phone-pad' onChangeText={(text) => this.setState({ miktar: text.replace(',', '.') })} />
             </Item>
             <Button block success onPress={()=>this.btnKaydet()}>
               <Text>KAYDET</Text>
