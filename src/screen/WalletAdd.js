@@ -87,11 +87,11 @@ export default class WalletAdd extends React.Component {
             </Picker>
             <Item stackedLabel>
               <Label>Alış Kuru</Label>
-              <Input keyboardType='phone-pad' onChangeText={(text)=>this.setState({ alisKuru:text.replace(',','.') })}/>
+              <Input keyboardType='numeric' onChangeText={(text)=>this.setState({ alisKuru:text.replace(',','.') })}/>
             </Item>
             <Item stackedLabel last>
               <Label>Miktar</Label>
-              <Input keyboardType='phone-pad' onChangeText={(text) => this.setState({ miktar: text.replace(',', '.') })} />
+              <Input keyboardType='numeric' onChangeText={(text) => this.setState({ miktar: text.replace(',', '.') })} />
             </Item>
             <Button block success onPress={()=>this.btnKaydet()}>
               <Text>KAYDET</Text>

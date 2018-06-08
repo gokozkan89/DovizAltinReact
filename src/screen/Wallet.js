@@ -80,11 +80,10 @@ export default class Wallet extends React.Component {
           <Card style={styles.margin}>
             <CardItem style={{ paddingLeft: 0, paddingRight: 0 }}>
               <Text style={{ textAlign: 'center', flex: 1, marginLeft: 0 }}>
-                CODE
+                HESAP ADI
               </Text>
-              <Text style={{ textAlign: 'center', flex: 1.5 }}>ALIŞ KURU</Text>
-              <Text style={{ textAlign: 'center', flex: 1 }}>MİKTAR</Text>
-              <Text style={{ textAlign: 'center', flex: 1 }}>TUTAR</Text>
+
+              <Text style={{ textAlign: 'center', flex: 1.5 }}>MİKTAR</Text>
               <Text style={{ textAlign: 'center', flex: 1.5 }}>KAR/ZARAR</Text>
             </CardItem>
           </Card>
@@ -102,15 +101,11 @@ export default class Wallet extends React.Component {
                         <Text style={{ textAlign: 'center', flex: 1 }}>
                           {item.code}
                         </Text>
+
                         <Text style={{ textAlign: 'center', flex: 1.5 }}>
-                          {item.alisKuru}
-                        </Text>
-                        <Text style={{ textAlign: 'center', flex: 1 }}>
                           {item.miktar}
                         </Text>
-                        <Text style={{ textAlign: 'center', flex: 1 }}>
-                          {item.tutar}
-                        </Text>
+
                         <Text
                           style={{
                             textAlign: 'center',
